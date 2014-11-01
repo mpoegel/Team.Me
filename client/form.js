@@ -57,7 +57,7 @@ if (Meteor.isClient) {
       min: 0,
       max:10
     });
-    $( "cSharpeSlider" ).slider({
+    $( "#cSharpeSlider" ).slider({
       name: "cSharpe",
       min: 0,
       max:10
