@@ -9,5 +9,6 @@ Router.route('/', function () {
 this.render('home', {data: {title: 'TeamMe'}});
 });
 
-
+Router.route('/go');
 Router.route('/form');
+Router.route('/event');
