@@ -3,3 +3,5 @@
 
 // MongoDB
 Events = new Meteor.Collection("Events");
+
+Router.route('/form');
