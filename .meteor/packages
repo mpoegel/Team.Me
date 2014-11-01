@@ -9,4 +9,5 @@ insecure
 jquery
 mizzao:bootstrap-3
 iron:router
+mizzao:jquery-ui
 
