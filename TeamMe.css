@@ -1,1 +1,6 @@
 /* CSS declarations go here */
+
+.viewport {
+  min-height: 850px;
+  padding-top: 200px;
+}
