@@ -229,7 +229,7 @@ if (Meteor.isClient) {
 
       // ==> Ready to plot the first the principal components and clusters!
       Events.update({ _id:curr_event }, {
-        data: points
+        $set: { data: points }
       });
 
     }
