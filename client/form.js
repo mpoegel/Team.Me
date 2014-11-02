@@ -198,6 +198,7 @@ if (Meteor.isClient) {
       var person = {
         name : $("#inputName").val(),
         phone : $("#inputNumber").val(),
+        gitHandle : $("#gitHandle").val(),
         attributes : {
           webDev : $( "#webDevSlider" ).slider( "value" ),
           dataScience : $( "#DataScienceSlider" ).slider( "value" ),
