@@ -193,7 +193,7 @@ if (Meteor.isClient) {
     $( "#digitalOceanVal" ).val($( "#digitalOceanSlider" ).slider( "value" ) );
 
   };
-  Template.collect.events({
+  Template.form.events({
     'click #submitForm': function() {
       var person = {
         name : $("#inputName").val(),
@@ -217,9 +217,17 @@ if (Meteor.isClient) {
           google : $( "#googleSlider" ).slider( "value" ),
           mongoDB : $( "#mongoDBSlider" ).slider( "value") ,
           viacom : $( "#viacomSlider" ).slider( "value" ) ,
-          digitalOcean : $( "#digitalOceanSlider" ).slider( "value" ),
+          digitalOcean : $( "#digitalOceanSlider" ).slider( "value" )
         }
       }
+
+      var curr_event_id = Session.get("current_event");
+      Events.update({ _id:curr_event_id }, {
+        $push: { participants: person },
+        $inc: { numPeople: 1}
+      });
+
+      Router.go('/event');
 
     }
   });

@@ -9,18 +9,24 @@
 
       <div class="md-col-12">
         <a href="/form" class="btn btn-lg btn-default">Join This Event!</a>
-        <button id="makeTeams" class="btn btn-lg btn-default">Make Teams</button>
       </div>
 
     </div>
 
     <div class="row">
       <div class="md-col-4">
-        <table class="table table-striped">
-          <tbody>
-            {{ participants }}
-          </tbody>
-        </table>
+        <h3>Participants:</h3>
+        <ul class="list-group">
+          {{#each participants }}
+            <li class="list-group-item">{{name}}</li>
+          {{/each}}
+        </ul>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="md-col-12">
+        <button id="makeTeams" class="btn btn-lg btn-default">Make Teams</button>
       </div>
     </div>
 

@@ -5,6 +5,21 @@ if (Meteor.isClient) {
       // PCA for the win?
 
       // grab the data from the mongodb and create a 2D matrix
+      var X = [];
+      var curr_event = Session.get("current_event");
+      var e = Events.find({ _id:curr_event }).fetch()[0];
+
+      for (var i=0; i<e.participants.length; i++) {
+        var row = [];
+        console.log(e.participants[i]);
+        for (var attr in e.participants[i]['attributes']) {
+          console.log(attr);
+        }
+        X.push(row);
+      }
+
+      console.log(X);
+
       var X = [[1, 3, 5, 4, 4, 6, 3, 6, 0],
                [4, 6, 9, 14, 4, 5, 5, 12, 2],
                [1, 0, 1, 0, 1, 0, 1, 0, 1],
@@ -151,7 +166,7 @@ if (Meteor.isClient) {
           break;
       }
 
-      console.log(points);
+      // console.log(points);
 
       // ==> force each cluster to have the desired number of members
       // sort the clusters in descending order by populus
@@ -162,7 +177,6 @@ if (Meteor.isClient) {
         if (group_totals[centroid_num] <= 4) break; // we're done;
         // find the closest centroid
         var centroid_num = group_totals.indexOf(sorted_groups[i]);
-        console.log(centroid_num);
         locked_groups.push(centroid_num);
         var closest_dist = -1;
         var closest_cent = 0;
@@ -204,15 +218,14 @@ if (Meteor.isClient) {
         }
       }
 
-      console.log(points);
 
 
       // ==> Ready to plot the first two principal components
-      var curr_event_id = Session.get("current_event");
-      Events.update({ _id:curr_event_id }, {
-        PC: pc,
-        L: e
-      })
+      // var curr_event_id = Session.get("current_event");
+      // Events.update({ _id:curr_event_id }, {
+      //   PC: pc,
+      //   L: e
+      // })
 
     }
   });

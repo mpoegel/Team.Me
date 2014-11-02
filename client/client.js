@@ -7,7 +7,8 @@ if (Meteor.isClient) {
       if (name == "") return;
       Events.insert({
         name: name,
-        numPeople: 0
+        numPeople: 0,
+        participants: []
       });
     },
     'click #eventList li': function() {
@@ -21,7 +22,13 @@ if (Meteor.isClient) {
   };
 
   Template.event.participants = function() {
-    return;
+    var curr_event = Session.get("current_event");
+    var e = Events.find({ _id:curr_event }).fetch()[0];
+    // var names = [];
+    // for (var i=0; i<e.participants.length; i++) {
+    //
+    // }
+    return e.participants;
   };
 
 
