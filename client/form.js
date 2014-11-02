@@ -195,10 +195,15 @@ if (Meteor.isClient) {
   };
   Template.form.events({
     'click #submitForm': function() {
+
+      if ($("#inputName").val() == "") {
+        alert("Please enter your name!");
+        return;
+      }
+
       var person = {
         name : $("#inputName").val(),
         phone : $("#inputNumber").val(),
-        gitHandle : $("#gitHandle").val(),
         attributes : {
           webDev : $( "#webDevSlider" ).slider( "value" ),
           dataScience : $( "#DataScienceSlider" ).slider( "value" ),
