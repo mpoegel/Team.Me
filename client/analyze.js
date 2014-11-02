@@ -9,25 +9,34 @@ if (Meteor.isClient) {
       var curr_event = Session.get("current_event");
       var e = Events.find({ _id:curr_event }).fetch()[0];
 
+      // ensure that there are enought people to make teams
+      if (!e.participants || e.participants.length<8) {
+        $("#alertBox").empty();
+        $("<div>", {
+          "class": "alert alert-danger alert-dismissible",
+          text: "Oops! You need at least 8 people to create teams!"
+        }).append('<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>').appendTo("#alertBox");
+        console.log("not enough people!");
+        return;
+      }
+
       for (var i=0; i<e.participants.length; i++) {
         var row = [];
-        console.log(e.participants[i]);
-        for (var attr in e.participants[i]['attributes']) {
-          console.log(attr);
+        var person = e.participants[i];
+        for (var attr in person['attributes']) {
+          row.push(person['attributes'][attr]);
         }
         X.push(row);
       }
 
-      console.log(X);
-
-      var X = [[1, 3, 5, 4, 4, 6, 3, 6, 0],
-               [4, 6, 9, 14, 4, 5, 5, 12, 2],
-               [1, 0, 1, 0, 1, 0, 1, 0, 1],
-               [4, 5, 10, 3, 2, 7, 3, 1, 10],
-               [5, 1, 4, 4, 5, 1, 5, 9, 2],
-               [3, 2, 12, 10, 2, 5, 0, 20, 1],
-               [9, 10, 3, 23, 5, 1, 12, 13, 2],
-               [4, 4, 4, 10, 3, 8, 9, 2, 5]]; // size is n by d
+      // var X = [[1, 3, 5, 4, 4, 6, 3, 6, 0],
+      //          [4, 6, 9, 14, 4, 5, 5, 12, 2],
+      //          [1, 0, 1, 0, 1, 0, 1, 0, 1],
+      //          [4, 5, 10, 3, 2, 7, 3, 1, 10],
+      //          [5, 1, 4, 4, 5, 1, 5, 9, 2],
+      //          [3, 2, 12, 10, 2, 5, 0, 20, 1],
+      //          [9, 10, 3, 23, 5, 1, 12, 13, 2],
+      //          [4, 4, 4, 10, 3, 8, 9, 2, 5]]; // size is n by d
       var size = numeric.dim(X)
       var n = size[0]; // rows
       var d = size[1]; // columns
@@ -218,14 +227,10 @@ if (Meteor.isClient) {
         }
       }
 
-
-
-      // ==> Ready to plot the first two principal components
-      // var curr_event_id = Session.get("current_event");
-      // Events.update({ _id:curr_event_id }, {
-      //   PC: pc,
-      //   L: e
-      // })
+      // ==> Ready to plot the first the principal components and clusters!
+      Events.update({ _id:curr_event }, {
+        data: points
+      });
 
     }
   });
