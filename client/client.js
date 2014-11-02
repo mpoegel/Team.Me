@@ -73,8 +73,8 @@ if (Meteor.isClient) {
                           while(cstring.length < 6){
                               cstring = "0" + cstring;
                           }
-                          e.css({"border-left":"20px solid #" + cstring , "padding-left":"10px", "text-align":"left"});
-                          e[0].innerHTML = names.join(",");
+                          e.css({"border-left":"20px solid #" + cstring , "color":"black", "padding-left":"10px", "text-align":"left"});
+                          e[0].innerHTML = names.join(", ");
                           li.append(e);
                           ng.append(li);
                       }
@@ -84,6 +84,31 @@ if (Meteor.isClient) {
 
               },500);
           },5000);
+      },
+      'click #groupme-button': function(){
+            $.post("https://api.groupme.com/v3/groups?token=f541d0f044340132e2d37efd5619033a",{
+                "name": Events.find({_id:Session.get("current_event")}).fetch()[0].name,
+                "share": true
+            },function(data){
+                console.log(data);
+                console.log("GroupMe Room Created!!!");
+                var groupid = data["response"]["group_id"];
+                var curr_event = Session.get("current_event");
+                var eventInfo = Events.find({_id:curr_event}).fetch()[0];
+                var mems = [];
+                for (var i = 0;i <eventInfo.participants.length;i++){
+                    mems.push({
+                        "nickname": eventInfo.participants[i].name,
+                        "phone_number": "+1 " + eventInfo.participants[i].phone,
+                        "guid" : "GUID" + i
+                    });
+                }
+                $.post("https://api.groupme.com/v3/groups"+groupid+"/members/add?token=" + groupid, {
+                  "members": mems
+                }, function(data){
+                    
+                });
+            });
       }
   });
 
