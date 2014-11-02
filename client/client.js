@@ -51,7 +51,6 @@ if (Meteor.isClient) {
                       });
                   }
                   visual[0].contentWindow.displayGraph(fdata);
-
                   // Populate groups
                   var colors = visual[0].contentWindow.window.colors;
                   var groups = $("#groups");
@@ -81,7 +80,6 @@ if (Meteor.isClient) {
                   }
 
                   $("#groupme-button").show();
-
               },500);
           },5000);
       },
@@ -106,7 +104,7 @@ if (Meteor.isClient) {
                 $.post("https://api.groupme.com/v3/groups"+groupid+"/members/add?token=" + groupid, {
                   "members": mems
                 }, function(data){
-                    
+
                 });
             });
       }
