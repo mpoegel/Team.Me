@@ -27,7 +27,7 @@ html,
 body {
   height: 100%;
   background-color: #333;
-  background: transparent url('/Square_Grid.svg');
+  background: transparent url('/DullBackground.png');
 }
 body {
   color: #fff;
