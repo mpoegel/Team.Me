@@ -31,5 +31,29 @@ if (Meteor.isClient) {
     return e.participants;
   };
 
+  Template.event.events({
+      'click #makeTeams': function() {
+          $("#visualization")[0].innerHTML = "Teams are being processed...";
+          setTimeout(function(){
+              $("#visualization").css({"height":"800px"});
+              $("#visualization")[0].innerHTML = "";
+              var visual = $("<iframe class='visualization-frame' src='/visualization/index.html'></iframe>");
+              $("#visualization").append(visual);
+              setTimeout(function(){
+                  var curr_event = Session.get("current_event");
+                  var data = Events.find({_id:curr_event}).fetch()[0].data;
+                  var fdata = {"items":[]};
+                  for (var i = 0;i < data.length;i++){
+                      fdata.items.push({
+                          "group": data[i].group,
+                          "value": data[i].coords
+                      });
+                  }
+                  visual[0].contentWindow.displayGraph(fdata);
+              },500);
+          },5000);
+      }
+  });
+
 
 }
