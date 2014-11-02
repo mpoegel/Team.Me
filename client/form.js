@@ -192,5 +192,35 @@ if (Meteor.isClient) {
     });
     $( "#digitalOceanVal" ).val($( "#digitalOceanSlider" ).slider( "value" ) );
 
-  }
+  };
+  Template.collect.events({
+    'click #submitForm': function() {
+      var person = {
+        name : $("#inputName").val(),
+        phone : $("#inputNumber").val(),
+        attributes : {
+          webDev : $( "#webDevSlider" ).slider( "value" ),
+          dataScience : $( "#DataScienceSlider" ).slider( "value" ),
+          virtualReality : $( "#virtualRealitySlider" ).slider( "value" ),
+          hardware : $( "#hardwareSlider" ).slider( "value" ),
+          mobileApp : $( "#MobileAppSlider" ).slider( "value" ),
+          gameDev : $( "#gameDevSlider" ).slider( "value" ),
+          javaScript : $( "#javaScriptSlider" ).slider( "value" ),
+          PHP : $( "#PHPSlider" ).slider( "value" ) ,
+          ruby : $( "#rubySlider" ).slider( "value" ),
+          c : $( "#cSlider" ).slider( "value" ),
+          Java : $( "#javaSlider" ).slider( "value" ),
+          cSharpe : $( "#cSharpeSlider" ).slider( "value" ),
+          python : $( "#pythonSlider" ).slider( "value" ),
+          microsoft : $( "#microsoftSlider" ).slider( "value" ),
+          bloomberg : $( "#bloombergSlider" ).slider( "value" ) ,
+          google : $( "#googleSlider" ).slider( "value" ),
+          mongoDB : $( "#mongoDBSlider" ).slider( "value") ,
+          viacom : $( "#viacomSlider" ).slider( "value" ) ,
+          digitalOcean : $( "#digitalOceanSlider" ).slider( "value" ),
+        }
+      }
+
+    }
+  });
 };
