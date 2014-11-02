@@ -26,6 +26,10 @@ if (Meteor.isClient) {
         for (var attr in person['attributes']) {
           row.push(person['attributes'][attr]);
         }
+        // bandaide
+        while (row.length <= e.participants.length) {
+          row.push.apply(row,row); // row your boat
+        }
         X.push(row);
       }
 
@@ -80,7 +84,6 @@ if (Meteor.isClient) {
       eigen_hacker = numeric.transpose(eigen_hackerT);
 
       var principal_coordinates = numeric.dot(Bt,eigen_hacker);
-
       // ==> Sort eigenvalues in descending order and reorder the eigenvectors
       var e = eigenvalues.x;
       // create an assciative array of the eigenvalues and eigen_hackers
@@ -98,7 +101,6 @@ if (Meteor.isClient) {
         e.push(eigen);
         pc.push(pairs[eigen]);
       }
-
 
       // ==> Examine the explained variance
 
@@ -131,6 +133,7 @@ if (Meteor.isClient) {
         }
         return Math.sqrt(s);
       }
+
 
       // go go go
       var centroids = [], sums = [];
@@ -226,6 +229,8 @@ if (Meteor.isClient) {
           group_totals[closest_cent]++;
         }
       }
+
+      console.log(points);
 
       // ==> Ready to plot the first the principal components and clusters!
       Events.update({ _id:curr_event }, {

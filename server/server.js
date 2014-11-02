@@ -13,9 +13,9 @@ if (Meteor.isServer) {
                "K-9", "Davros", "David Tennent", "TARDIS",
                "Master"];
       eventNames = ["HackRPI", "YHack", "Hacks out of a Hat"];
-      eventPops = [500, 150, 12];
-      numAttrs = 20;
-      maxAttrVal = 10;
+      eventPops = [50, 150, 12];
+      numAttrs = 50;
+      maxAttrVal = 100;
 
       // populate each event with random test data
       for (var ename=0; ename<eventNames.length; ename++) {
