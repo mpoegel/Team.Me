@@ -3,3 +3,7 @@
 .eventName {
   color: black;
 }
+
+.body {
+  background: url("img/GoogleMe.jpg");
+}

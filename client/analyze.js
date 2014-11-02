@@ -99,7 +99,7 @@ if (Meteor.isClient) {
 
       // distance function
       // start by only using the first two PCs
-      var MAX = 2;
+      var MAX = 3;
       var dist = function(a,b){
         var s = 0;
         for (var i=0; i<MAX; i++) {
@@ -157,8 +157,6 @@ if (Meteor.isClient) {
       // sort the clusters in descending order by populus
       var sorted_groups = group_totals.slice().sort().reverse() ;
       var locked_groups = [];
-
-      console.log(sorted_groups);
 
       for (var i=0; i<num_groups; i++) {
         if (group_totals[centroid_num] <= 4) break; // we're done;
