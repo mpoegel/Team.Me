@@ -182,16 +182,24 @@ if (Meteor.isClient) {
 
       // ==> force each cluster to have the desired number of members
       // sort the clusters in descending order by populus
-      var sorted_groups = group_totals.slice().sort().reverse() ;
+      var sorted_groups = group_totals.slice().sort();
       var locked_groups = [];
 
       console.log(sorted_groups);
       console.log(group_totals);
 
       for (var i=0; i<num_groups; i++) {
-        // if (group_totals[centroid_num] <= 4) break; // we're done;
+        if (group_totals[centroid_num] <= 4) break; // we're done;
+        var hi = 0;
+        var cnum = 0;
+        for (var k=0; k<num_groups; k++) {
+          if (group_totals[k] > hi) {
+            hi = group_totals[k];
+            cnum = k;
+          }
+        }
         // find the closest centroid
-        var centroid_num = group_totals.indexOf(sorted_groups[i]);
+        var centroid_num = cnum; //group_totals.indexOf(sorted_groups[i]);
         console.log("> ", centroid_num);
         locked_groups.push(centroid_num);
         var closest_dist = -1;
@@ -236,6 +244,7 @@ if (Meteor.isClient) {
         }
       }
 
+      console.log(points);
       console.log(group_totals);
 
       // ==> Ready to plot the first the principal components and clusters!
