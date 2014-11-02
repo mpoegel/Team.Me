@@ -155,13 +155,16 @@ if (Meteor.isClient) {
 
       // ==> force each cluster to have the desired number of members
       // sort the clusters in descending order by populus
-      var sorted_groups = group_totals.sort();
+      var sorted_groups = group_totals.slice().sort().reverse() ;
       var locked_groups = [];
+
+      console.log(sorted_groups);
 
       for (var i=0; i<num_groups; i++) {
         if (group_totals[centroid_num] <= 4) break; // we're done;
         // find the closest centroid
         var centroid_num = group_totals.indexOf(sorted_groups[i]);
+        console.log(centroid_num);
         locked_groups.push(centroid_num);
         var closest_dist = -1;
         var closest_cent = 0;
@@ -198,7 +201,7 @@ if (Meteor.isClient) {
           }
           // move the closest point
           group_totals[centroid_num]--;
-          points[p].group = closest_cent;
+          points[closest_node].group = closest_cent;
           group_totals[closest_cent]++;
         }
       }
