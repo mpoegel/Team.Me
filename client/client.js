@@ -41,7 +41,8 @@ if (Meteor.isClient) {
               $("#visualization").append(visual);
               setTimeout(function(){
                   var curr_event = Session.get("current_event");
-                  var data = Events.find({_id:curr_event}).fetch()[0].data;
+                  var eventInfo = Events.find({_id:curr_event}).fetch()[0];
+                  var data = eventInfo.data;
                   var fdata = {"items":[]};
                   for (var i = 0;i < data.length;i++){
                       fdata.items.push({
