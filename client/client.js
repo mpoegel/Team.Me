@@ -1,12 +1,5 @@
 if (Meteor.isClient) {
 
-  Template.form.events({
-    'click #submitForm': function() {
-      // gather all the information in the form and store it in the datebase
-
-    }
-  });
-
   Template.go.events({
     'click #createEventBtn': function() {
       // add a new event to the database
@@ -30,5 +23,6 @@ if (Meteor.isClient) {
   Template.event.participants = function() {
     return;
   };
+
 
 }
