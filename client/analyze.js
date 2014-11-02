@@ -124,7 +124,7 @@ if (Meteor.isClient) {
 
 
       // distance function
-      // start by only using the first two PCs
+      // start by only using the first 3 PCs
       var MAX = 3;
       var dist = function(a,b){
         var s = 0;
@@ -185,10 +185,14 @@ if (Meteor.isClient) {
       var sorted_groups = group_totals.slice().sort().reverse() ;
       var locked_groups = [];
 
+      console.log(sorted_groups);
+      console.log(group_totals);
+
       for (var i=0; i<num_groups; i++) {
-        if (group_totals[centroid_num] <= 4) break; // we're done;
+        // if (group_totals[centroid_num] <= 4) break; // we're done;
         // find the closest centroid
         var centroid_num = group_totals.indexOf(sorted_groups[i]);
+        console.log("> ", centroid_num);
         locked_groups.push(centroid_num);
         var closest_dist = -1;
         var closest_cent = 0;
@@ -208,11 +212,13 @@ if (Meteor.isClient) {
             closest_dist = d;
             closest_cent = c;
         }
+        console.log(closest_cent);
         // move points out of this cluster to the closest cluster until only 4
         // remain
         while (group_totals[centroid_num] > 4) {
           var closest_dist = -1;
           var closest_node = 0;
+          console.log(group_totals);
           for (var p=0; p<points.length; p++) {
             // only move the points in the cluster we're currently looking at
             if (points[p].group == centroid_num) {
@@ -230,7 +236,7 @@ if (Meteor.isClient) {
         }
       }
 
-      console.log(points);
+      console.log(group_totals);
 
       // ==> Ready to plot the first the principal components and clusters!
       Events.update({ _id:curr_event }, {
